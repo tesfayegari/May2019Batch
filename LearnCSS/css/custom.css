@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#firstH1 {
+  color: red;
+}
+
+h1 {
+  
+  color: #f06f05 !important;
+}
+
+.headings {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.myDiv {
+  width: 200px;
+  height: 250px;
+  max-height: 250px;
+  float: left;
+  position: relative;
+  margin: 0 10px;
+  border-radius: 8px;
+  /* display: inline-block; */
+}
+
+.myDiv span {
+  position: absolute;
+  top: 100px;
+  left: 30px;
+}
+
+.myDiv:hover {
+  background: #000 url("https://teespring-storecontent.s3.amazonaws.com/i8Vf3ab6RLOPcPoaDXanlQ_store_header_image") no-repeat;
+  background-position: center;
+  background-size: 200px 250px;
+  filter: grayscale(50%);
+  color: #fff;
+}
+
+.one {
+  background-color: lightgray;
+}
+
+.two {
+  background-color: lightgreen;
+}
+
+.three {
+  background-color: lightyellow;
+}
+
+.four {
+  background-color: lightpink;
+}
+
+.five {
+  background-color: lightblue;
+}
+
+/* Second Section */
+.custom-container {
+  position: relative;
+  text-align: center;
+  color: orangered;
+  margin-top: 8px;
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* media query for screen size max of 440 px changes some style  */
