@@ -3,9 +3,10 @@
  * Author: Tesfaye Gari
  * Date: July 6, 2019
  */
+'use strict';
 console.log('Starting JS');
 var students=['fana','Fasil', 'Mulusew', 'Elsi'];
-for(index in students){
+for(var index in students){
   console.log(students[index]);
 }
 
@@ -25,4 +26,25 @@ function textChanged(event){
   }else{
     e.innerHTML = e.innerHTML.substring(0,e.innerHTML.length-1);
   }
+}
+
+function reverse(){
+  var val =document.getElementById('myNum').value*1;
+  var outPut = '';
+  
+  // for(var index=val.length-1; index >=0; index--){
+  //   outPut += val[index];
+  // }
+
+  while(val >0){
+    outPut +=  val % 10;
+    val = Math.floor(val/10);    
+  }
+
+
+  if(!outPut){
+    outPut=val;
+  }
+  document.getElementById('reversed').innerHTML = outPut;
+  
 }
