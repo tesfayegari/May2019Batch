@@ -1,0 +1,50 @@
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+  function getItems(listName) {
+    var endPoint = _spPageContextInfo.webAbsoluteUrl + "/_api/web/Lists/getbytitle('" + listName + "')/items";
+    return $.ajax({
+      url: endPoint,
+      type: "GET",
+      headers: {
+        "accept": "application/json;odata=verbose",
+      }
+    });
+  }
+
+  $(document).ready(function () {
+
+    getItems('Students').then(function (response) {
+      console.log('Data is ', response);
+      var items = response.d.results;
+      var myHtml = '<div class="container-fluid"><div class="row">';
+      for (var index in items) {       
+        myHtml +=        
+            '<div class="col-3">' +
+              '<div class="card" style="width:100%">' +
+                '<img class="card-img-top" src="'+ items[index].Photo + '" alt="Card image" style="width:100%">' +
+                '<div class="card-body">' +
+                  '<h4 class="card-title">'+ items[index].FirstName + ' ' +  items[index].LastName + '</h4>'+
+                  '<p class="card-text">'+ items[index].Title +'</p>'+
+                  '<p class="card-text">'+ items[index].DemoDepartment +'</p>'+
+                  '<a href="#" class="btn btn-primary">See Profile</a>'+
+                '</div>'+
+              '</div>'+
+            '</div>';
+      }
+      myHtml += '</div></div>';
+      $('#myAlerts').html(myHtml);
+    }, function (fail) { console.log(fail); });
+
+
+
+
+  });
+</script>
+
+
+<div id="myAlerts"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
