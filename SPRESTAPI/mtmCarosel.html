@@ -1,0 +1,40 @@
+<div id="demo" class="carousel slide" data-ride="carousel">
+    <ul class="carousel-indicators">
+    </ul>
+    <div class="carousel-inner">
+      
+    </div>
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+<script src="/sites/may2019pub/_catalogs/masterpage/MayMasterPage/js/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    getItems('MTMCarosel','').then(function(response){
+      var items = response.d.results;
+      var caroselInner = '', caroselIndicator='';
+      for(var index in items){
+        var active = index==0 ?'active' : '';
+        caroselIndicator += '<li data-target="#demo" data-slide-to="'+ index + '" class="' + active + '"></li>';
+        caroselInner += 
+        '<div class="carousel-item ' + active + '">' +
+          '<img src="' + items[index].Picture + '" alt="' + items[index].Title + '" style="width:100%;">' +
+          '<div class="carousel-caption">' +
+            '<h3>' + items[index].Title + '</h3>' +
+            '<p>' + items[index].Description + '</p>' +
+            '<a href="' + items[index].LinkUrl + '" class="btn btn-info">' + items[index].LinkLabel + '</a>' +
+          '</div>' +   
+        '</div>';        
+      }
+
+      $('.carousel-indicators').html(caroselIndicator);
+      $('.carousel-inner').html(caroselInner);
+      $('#demo').carousel({interval: 3000});//Changes the interval to 1000 ms = 1 s
+    },function(error){console.log('Error occured',error)});
+
+  });
+</script>
