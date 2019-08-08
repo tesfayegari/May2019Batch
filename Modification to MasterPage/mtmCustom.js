@@ -1,6 +1,7 @@
-function getItems(listName,queryParam) {
+function getItems(listName,queryParam,siteUrl) {
   if(!queryParam) queryParam='';
-  var endPoint = _spPageContextInfo.webAbsoluteUrl + "/_api/web/Lists/getbytitle('" + listName + "')/items" + queryParam;
+  if(!siteUrl) siteUrl =_spPageContextInfo.webAbsoluteUrl;
+  var endPoint = siteUrl + "/_api/web/Lists/getbytitle('" + listName + "')/items" + queryParam;
   return $.ajax({
     url: endPoint,
     type: "GET",
@@ -10,8 +11,40 @@ function getItems(listName,queryParam) {
   });
 }
 
+function getCourses(count, divId){
+  $(document).ready(function () {
+    getItems('Courses','?$top='+ count + '&$orderby=Modified desc').then(function(response){
+      var items = response.d.results;
+      var courses = '<section class="ftco-section">' +
+                      '<div class="container-fluid px-4">' +
+                          '<div class="row" id="mtmCourses">';
+      for(var index in items){
+        courses += 
+        '<div class="col-md-3 course ftco-animate">' +
+          '<div class="img" style="background-image: url('+ items[index].BackgroundImage+ ');"></div>' +
+          '<div class="text pt-4">' +
+            '<p class="meta d-flex">' +
+              '<span><i class="icon-user mr-2"></i>'+ items[index].Professor + '</span>' +
+              '<span><i class="icon-table mr-2"></i>'+ items[index].AvailableSeats + ' seats</span>' +
+              '<span><i class="icon-calendar mr-2"></i>'+ items[index].NumberOfYears + ' Years</span>' +
+            '</p>' +
+            '<h3><a href="#">'+ items[index].Title + '</a></h3>' +
+            '<p>'+ items[index].Description + '</p>' +
+            '<p><a href="#" class="btn btn-primary">Apply now</a></p>' +
+          '</div>' +
+        '</div>';
+      }
+      courses += '</div></div></section>';
+
+      $('#'+ divId).html(courses);
+     
+    },function(error){console.log('Error occured',error)});
+
+  });
+}
+
 function renderNavandFooterLink(){
-  getItems('Links','?$select=Title,Url,Order0&$orderby=Order0 asc').then(function (response) {
+  getItems('Links','?$select=Title,Url,Order0&$orderby=Order0 asc',_spPageContextInfo.siteAbsoluteUrl).then(function (response) {
     console.log('Data is ', response);
     var items = response.d.results;
     console.log(items);
@@ -37,7 +70,7 @@ function renderNavandFooterLink(){
   }, function (fail) { console.log("Error happened ",fail); });
 }
 function renderFeaturedBlogs(){
-  getItems('Blogs','?$expand=Editor&$select=Title,BlogBody,BlogImage,Modified,Editor/Title&$top=2&$filter=Publish eq 1').then(function (response) {
+  getItems('Blogs','?$expand=Editor&$select=Title,BlogBody,BlogImage,Modified,Editor/Title&$top=2&$filter=Publish eq 1',_spPageContextInfo.siteAbsoluteUrl).then(function (response) {
     console.log('Data is ', response);
     var items = response.d.results;
     console.log(items);

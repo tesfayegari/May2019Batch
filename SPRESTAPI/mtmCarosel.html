@@ -14,7 +14,7 @@
 <script src="/sites/may2019pub/_catalogs/masterpage/MayMasterPage/js/jquery.min.js"></script>
 <script>
   $(document).ready(function () {
-    getItems('MTMCarosel','').then(function(response){
+    getItems('MTMCarosel','?$filter=Show eq 1').then(function(response){
       var items = response.d.results;
       var caroselInner = '', caroselIndicator='';
       for(var index in items){
